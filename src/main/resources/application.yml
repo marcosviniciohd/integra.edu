@@ -1,0 +1,6 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://root:root@cluster0.ildju.mongodb.net/
+      database: integraedu
+      port: 8080

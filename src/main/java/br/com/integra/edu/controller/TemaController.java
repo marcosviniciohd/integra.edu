@@ -32,6 +32,12 @@ public class TemaController {
         return temaService.save(tema);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Tema> update(@PathVariable UUID id, @RequestBody Tema tema) {
+        Tema temaAtualizado = temaService.update(id, tema);
+        return temaAtualizado != null ? ResponseEntity.ok(temaAtualizado) : ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         temaService.delete(id);

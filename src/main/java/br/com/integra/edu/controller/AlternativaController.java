@@ -32,6 +32,12 @@ public class AlternativaController {
         return alternativaService.save(alternativa);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Alternativa> update(@PathVariable UUID id, @RequestBody Alternativa alternativa) {
+        Alternativa alternativaAtualizada = alternativaService.update(id, alternativa);
+        return alternativaAtualizada != null ? ResponseEntity.ok(alternativaAtualizada) : ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         alternativaService.delete(id);

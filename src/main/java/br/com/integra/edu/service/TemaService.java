@@ -27,6 +27,14 @@ public class TemaService {
         return temaRepository.save(tema);
     }
 
+    public Tema update(UUID id, Tema tema) {
+        if (temaRepository.existsById(id)) {
+            tema.setId(id);
+            return temaRepository.save(tema);
+        }
+        return null;
+    }
+
     public void delete(UUID id) {
         temaRepository.deleteById(id);
     }

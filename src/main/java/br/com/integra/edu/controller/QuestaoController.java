@@ -33,6 +33,12 @@ public class QuestaoController {
         return questaoService.save(questao);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Questao> update(@PathVariable UUID id, @RequestBody Questao questao) {
+        Questao questaoAtualizada = questaoService.update(id, questao);
+        return questaoAtualizada != null ? ResponseEntity.ok(questaoAtualizada) : ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         questaoService.delete(id);

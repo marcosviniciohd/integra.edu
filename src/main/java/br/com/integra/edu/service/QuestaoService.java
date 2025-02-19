@@ -5,6 +5,8 @@ import br.com.integra.edu.repository.QuestaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,6 +28,15 @@ public class QuestaoService {
     public Questao save(Questao questao) {
         questao.setId(UUID.randomUUID().toString());
         return questaoRepository.save(questao);
+    }
+
+    public Questao update(UUID id, Questao questao) {
+        if (questaoRepository.existsById(id)) {
+            questao.setId(id.toString());
+            questao.setDataAtualizacao(LocalDate.now());
+            return questaoRepository.save(questao);
+        }
+        return null;
     }
 
     public void delete(UUID id) {

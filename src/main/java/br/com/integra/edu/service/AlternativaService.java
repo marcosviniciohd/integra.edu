@@ -27,6 +27,14 @@ public class AlternativaService {
         return alternativaRepository.save(alternativa);
     }
 
+    public Alternativa update(UUID id, Alternativa alternativa) {
+        if (alternativaRepository.existsById(id)) {
+            alternativa.setId(id);
+            return alternativaRepository.save(alternativa);
+        }
+        return null;
+    }
+
     public void delete(UUID id) {
         alternativaRepository.deleteById(id);
     }
