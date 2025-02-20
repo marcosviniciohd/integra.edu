@@ -16,7 +16,7 @@ public class Questao {
     private String titulo;
     private String enunciado;
     private UUID temaId;
-    private UUID disciplinaId;
+    private Integer dificuldade;
     private List<UUID> alternativasId;
     private Boolean visivel;
     private LocalDate dataCriacao;
