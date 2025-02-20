@@ -5,6 +5,7 @@ import br.com.integra.edu.repository.TemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,12 +25,15 @@ public class TemaService {
 
     public Tema save(Tema tema) {
         tema.setId(UUID.randomUUID());
+        tema.setDataCriacao(LocalDateTime.now());
+        tema.setDataAtualizacao(LocalDateTime.now());
         return temaRepository.save(tema);
     }
 
     public Tema update(UUID id, Tema tema) {
         if (temaRepository.existsById(id)) {
             tema.setId(id);
+            tema.setDataAtualizacao(LocalDateTime.now());
             return temaRepository.save(tema);
         }
         return null;

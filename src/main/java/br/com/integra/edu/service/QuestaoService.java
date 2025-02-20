@@ -27,13 +27,15 @@ public class QuestaoService {
 
     public Questao save(Questao questao) {
         questao.setId(UUID.randomUUID().toString());
+        questao.setDataCriacao(LocalDateTime.now());
+        questao.setDataAtualizacao(LocalDateTime.now());
         return questaoRepository.save(questao);
     }
 
     public Questao update(UUID id, Questao questao) {
         if (questaoRepository.existsById(id)) {
             questao.setId(id.toString());
-            questao.setDataAtualizacao(LocalDate.now());
+            questao.setDataAtualizacao(LocalDateTime.now());
             return questaoRepository.save(questao);
         }
         return null;

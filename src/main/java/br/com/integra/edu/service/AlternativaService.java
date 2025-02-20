@@ -5,6 +5,7 @@ import br.com.integra.edu.repository.AlternativaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,12 +25,15 @@ public class AlternativaService {
 
     public Alternativa save(Alternativa alternativa) {
         alternativa.setId(UUID.randomUUID());
+        alternativa.setDataCriacao(LocalDateTime.now());
+        alternativa.setDataAtualizacao(LocalDateTime.now());
         return alternativaRepository.save(alternativa);
     }
 
     public Alternativa update(UUID id, Alternativa alternativa) {
         if (alternativaRepository.existsById(id)) {
             alternativa.setId(id);
+            alternativa.setDataAtualizacao(LocalDateTime.now());
             return alternativaRepository.save(alternativa);
         }
         return null;
