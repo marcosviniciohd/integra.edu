@@ -14,7 +14,7 @@ import java.util.UUID;
 @Document(collection = "questoes")
 public class Questao {
     @Id
-    private String id;
+    private UUID id;
     private String titulo;
     private String enunciado;
     private UUID temaId;
