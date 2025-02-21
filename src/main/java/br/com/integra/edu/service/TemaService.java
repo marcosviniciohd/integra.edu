@@ -33,6 +33,7 @@ public class TemaService {
     public Tema update(UUID id, Tema tema) {
         if (temaRepository.existsById(id)) {
             tema.setId(id);
+            tema.setDataCriacao(LocalDateTime.now());
             tema.setDataAtualizacao(LocalDateTime.now());
             return temaRepository.save(tema);
         }

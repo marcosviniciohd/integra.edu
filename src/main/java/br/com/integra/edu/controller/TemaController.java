@@ -5,7 +5,9 @@ import br.com.integra.edu.service.TemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,8 +30,14 @@ public class TemaController {
     }
 
     @PostMapping
-    public Tema save(@RequestBody Tema tema) {
-        return temaService.save(tema);
+    public ResponseEntity<Tema> save(@RequestBody Tema tema) {
+        Tema savedTema = temaService.save(tema);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedTema.getId())
+                .toUri();
+        return ResponseEntity.created(location).body(savedTema);
     }
 
     @PutMapping("/{id}")

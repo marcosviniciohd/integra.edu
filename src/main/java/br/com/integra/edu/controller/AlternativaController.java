@@ -5,7 +5,9 @@ import br.com.integra.edu.service.AlternativaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,8 +19,8 @@ public class AlternativaController {
     private AlternativaService alternativaService;
 
     @GetMapping
-    public List<Alternativa> findAll() {
-        return alternativaService.findAll();
+    public ResponseEntity<List<Alternativa>> findAll() {
+        return ResponseEntity.ok(alternativaService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -28,8 +30,11 @@ public class AlternativaController {
     }
 
     @PostMapping
-    public Alternativa save(@RequestBody Alternativa alternativa) {
-        return alternativaService.save(alternativa);
+    public ResponseEntity<Alternativa> save(@RequestBody Alternativa alternativa) {
+        Alternativa saved = alternativaService.save(alternativa);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(saved.getId()).toUri();
+        return ResponseEntity.created(location).body(saved);
     }
 
     @PutMapping("/{id}")

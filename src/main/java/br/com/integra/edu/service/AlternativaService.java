@@ -33,6 +33,7 @@ public class AlternativaService {
     public Alternativa update(UUID id, Alternativa alternativa) {
         if (alternativaRepository.existsById(id)) {
             alternativa.setId(id);
+            alternativa.setDataCriacao(LocalDateTime.now());
             alternativa.setDataAtualizacao(LocalDateTime.now());
             return alternativaRepository.save(alternativa);
         }

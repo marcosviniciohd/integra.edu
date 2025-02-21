@@ -3,6 +3,8 @@ package br.com.integra.edu.controller;
 import br.com.integra.edu.model.Questao;
 import br.com.integra.edu.service.QuestaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +20,8 @@ public class QuestaoController {
     private QuestaoService questaoService;
 
     @GetMapping
-    public List<Questao> findAll() {
-        return questaoService.findAll();
+    public ResponseEntity<List<Questao>> findAll() {
+        return ResponseEntity.ok(questaoService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -29,8 +31,9 @@ public class QuestaoController {
     }
 
     @PostMapping
-    public Questao save(@RequestBody Questao questao) {
-        return questaoService.save(questao);
+    public ResponseEntity<Questao> save(@RequestBody Questao questao) {
+        Questao savedQuestao = questaoService.save(questao);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedQuestao);
     }
 
     @PutMapping("/{id}")
